@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "titulo": "Avances de la Inteligencia Artificial en la Educación Superior",
+    "categoria": "Tecnología",
+    "descripcionBreve": "Cómo las herramientas generativas están transformando la enseñanza y evaluación en las aulas universitarias.",
+    "contenido": "Las plataformas de IA generativa y los entornos de aprendizaje adaptativo permiten a las instituciones educativas personalizar los planes de estudio. Los docentes ahora cuentan con asistentes para la creación de contenidos interactivos y automatización de procesos.",
+    "imagenUrl": "https://picsum.photos/id/0/600/400",
+    "fechaPublicacion": "2026-09-15",
+    "destacada": true
+  },
+  {
+    "id": 2,
+    "titulo": "Nuevas Rutas Turísticas Sostenibles para el 2026",
+    "categoria": "Turismo",
+    "descripcionBreve": "Iniciativas comunitarias promueven el ecoturismo responsable en áreas de conservación natural.",
+    "contenido": "El turismo sostenible impulsa el desarrollo de economías locales mediante circuitos guiados que protegen los ecosistemas. Estas iniciativas buscan minimizar el impacto ambiental y concientizar a los viajeros sobre la importancia de la conservación.",
+    "imagenUrl": "https://picsum.photos/id/1015/600/400",
+    "fechaPublicacion": "2026-09-20",
+    "destacada": true
+  },
+  {
+    "id": 3,
+    "titulo": "Crecimiento del Comercio Electrónico Transfronterizo",
+    "categoria": "Comercio",
+    "descripcionBreve": "Las pequeñas y medianas empresas expanden sus ventas globales gracias a nuevas plataformas digitales.",
+    "contenido": "La digitalización de pagos y la mejora en las redes logísticas han facilitado que pequeños productores vendan sus productos internacionalmente. Este fenómeno está transformando el comercio minorista tradicional.",
+    "imagenUrl": "https://picsum.photos/id/1060/600/400",
+    "fechaPublicacion": "2026-09-22",
+    "destacada": true
+  },
+  {
+    "id": 4,
+    "titulo": "Nuevos Modelos Pedagógicos en la Educación Virtual",
+    "categoria": "Educación",
+    "descripcionBreve": "Estrategias de aprendizaje basado en proyectos revolucionan la formación a distancia.",
+    "contenido": "La educación a distancia evoluciona con metodologías centradas en la colaboración, la resolución de problemas reales y el desarrollo de competencias digitales esenciales para el mercado laboral actual.",
+    "imagenUrl": "https://picsum.photos/id/20/600/400",
+    "fechaPublicacion": "2026-09-24",
+    "destacada": false
+  },
+  {
+    "id": 5,
+    "titulo": "Reformas Económicas e Impacto en la Actualidad",
+    "categoria": "Actualidad",
+    "descripcionBreve": "Análisis de las medidas fiscales recientes y sus repercusiones en el sector productivo.",
+    "contenido": "Especialistas analizan las dinámicas macroeconómicas del año corriente y proyectan los retos financieros para las empresas y consumidores en el próximo trimestre.",
+    "imagenUrl": "https://picsum.photos/id/1069/600/400",
+    "fechaPublicacion": "2026-09-26",
+    "destacada": false
+  }
+]
