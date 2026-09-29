@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Noticia } from '../models/noticia.model';
 
@@ -11,11 +11,9 @@ export class NoticiaService {
   private readonly STORAGE_KEY = 'infonova_noticias';
   private readonly FAVORITES_KEY = 'infonova_favoritos';
 
-  // BehaviorSubject para notificar cambios en la lista de noticias a los componentes
   private noticiasSubject = new BehaviorSubject<Noticia[]>([]);
   public noticias$ = this.noticiasSubject.asObservable();
 
-  // BehaviorSubject para notificar cambios en la lista de favoritos
   private favoritosSubject = new BehaviorSubject<Noticia[]>([]);
   public favoritos$ = this.favoritosSubject.asObservable();
 
@@ -24,30 +22,53 @@ export class NoticiaService {
   }
 
   /**
-   * Carga inicial: Si no existen noticias en localStorage, realiza el fetch del JSON local
+   * Carga inicial: Si no existen noticias en localStorage, realiza la petición HTTP del JSON local
    */
-  private cargarNoticiasIniciales(): void {
-    const noticiasGuardadas = localStorage.getItem(this.STORAGE_KEY);
+private cargarNoticiasIniciales(): void {
+      this.http.get<Noticia[]>('data/noticias.json').subscribe({
+        next: (noticiasJson) => {
+          this.procesarNoticias(noticiasJson);
+        },
+        error: (err) => {
+          console.error('No se pudo cargar noticias.json desde ninguna ruta:', err);
+          // Si falla la red, cargamos lo que haya en localStorage como último recurso
+          const guardadas = localStorage.getItem(this.STORAGE_KEY);
+          if (guardadas) {
+            const noticias = JSON.parse(guardadas);
+            this.noticiasSubject.next(noticias);
+            this.actualizarFavoritosSubject(noticias);
+          }
+        }
+      });
+}
 
-    if (noticiasGuardadas) {
-      const noticias: Noticia[] = JSON.parse(noticiasGuardadas);
-      this.noticiasSubject.next(noticias);
-      this.actualizarFavoritosSubject(noticias);
-    } else {
-      // Cargar desde noticias.json si es la primera ejecución
-      this.http.get<Noticia[]>('assets/data/noticias.json').pipe(
-        tap((noticias) => {
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(noticias));
-          this.noticiasSubject.next(noticias);
-          this.actualizarFavoritosSubject(noticias);
-        }),
-        catchError((error) => {
-          console.error('Error al cargar noticias.json:', error);
-          return of([]);
-        })
-      ).subscribe();
+
+  /**
+   * Carga sec
+   */
+private procesarNoticias(noticiasJson: Noticia[]): void {
+  const noticiasGuardadas = localStorage.getItem(this.STORAGE_KEY);
+  
+  if (noticiasGuardadas) {
+    try {
+      const noticiasLocal: Noticia[] = JSON.parse(noticiasGuardadas);
+      
+      // Mantenemos las noticias creadas manualmente desde la app (IDs que no están en el JSON)
+      const idsJson = new Set(noticiasJson.map(n => n.id));
+      const creadasPorUsuario = noticiasLocal.filter(n => !idsJson.has(n.id));
+      
+      // Mezclamos lo nuevo del JSON con las creadas por el usuario
+      const noticiasActualizadas = [...noticiasJson, ...creadasPorUsuario];
+      this.guardarEnStorage(noticiasActualizadas);
+      return;
+    } catch (e) {
+      console.error('Error leyendo LocalStorage:', e);
     }
   }
+
+  // Si no había nada en LocalStorage, guardamos y notificamos las noticias del JSON
+  this.guardarEnStorage(noticiasJson);
+}
 
   /**
    * Obtiene la lista actual de noticias
@@ -87,8 +108,6 @@ export class NoticiaService {
   eliminarNoticia(id: number): void {
     const noticiasFiltradas = this.getNoticias().filter(n => n.id !== id);
     this.guardarEnStorage(noticiasFiltradas);
-    
-    // Si estaba en favoritos, también se remueve
     this.eliminarFavorito(id);
   }
 
@@ -97,7 +116,8 @@ export class NoticiaService {
   // ==========================================
 
   /**
-   * OBTENER los IDs de las noticias favoritas
+   * Obtiene la lista de IDs de noticias favoritas.
+   * @returns 
    */
   private getIdsFavoritos(): number[] {
     const favs = localStorage.getItem(this.FAVORITES_KEY);
@@ -105,7 +125,8 @@ export class NoticiaService {
   }
 
   /**
-   * Actualizar la lista de favoritos
+   * Actualiza el subject de noticias favoritas.
+   * @param noticias 
    */
   private actualizarFavoritosSubject(noticias: Noticia[] = this.getNoticias()): void {
     const idsFavs = this.getIdsFavoritos();
@@ -114,14 +135,17 @@ export class NoticiaService {
   }
 
   /**
-   * Verificar si una noticia es favorita
+   * Verifica si una noticia está en los favoritos.
+   * @param id 
+   * @returns 
    */
   esFavorito(id: number): boolean {
     return this.getIdsFavoritos().includes(id);
   }
 
-   /**
-   * Guardar una noticia como favorita
+  /**
+   * Guarda una noticia como favorita.
+   * @param id 
    */
   guardarFavorito(id: number): void {
     const idsFavs = this.getIdsFavoritos();
@@ -132,8 +156,9 @@ export class NoticiaService {
     }
   }
 
-   /**
-   * Eliminar una noticia de los favoritos
+  /**
+   * Elimina una noticia de los favoritos.
+   * @param id 
    */
   eliminarFavorito(id: number): void {
     let idsFavs = this.getIdsFavoritos();
@@ -142,8 +167,10 @@ export class NoticiaService {
     this.actualizarFavoritosSubject();
   }
 
-   /**
-   * Alternar el estado de favorito de una noticia
+
+  /**
+   * Alterna el estado de favorito para una noticia.
+   * @param id 
    */
   toggleFavorito(id: number): void {
     if (this.esFavorito(id)) {
@@ -153,8 +180,9 @@ export class NoticiaService {
     }
   }
 
-   /**
-   * Guardar la lista de noticias en localStorage y notificar a los suscriptores
+  /**
+   * guarda la lista de noticias en localStorage y actualiza los subjects.
+   * @param noticias 
    */
   private guardarEnStorage(noticias: Noticia[]): void {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(noticias));

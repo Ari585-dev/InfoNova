@@ -1,11 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { NoticiaService } from '../../services/noticia.service';
 
 @Component({
   selector: 'app-navbar',
-  standalone: false,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css'],
+  imports: [CommonModule, RouterModule] // <--- Importante incluir estos dos módulos
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  cantidadFavoritos: number = 0;
 
+  constructor(private noticiaService: NoticiaService) {}
+
+  /**
+   * Inicializa el componente y suscribe al observable de noticias favoritas.
+   */
+  ngOnInit(): void {
+    this.noticiaService.favoritos$.subscribe(favs => {
+      this.cantidadFavoritos = favs.length;
+    });
+  }
 }

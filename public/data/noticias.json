@@ -31,7 +31,7 @@
   },
   {
     "id": 4,
-    "titulo": "Nuevos Modelos Pedagógicos en la Educación Virtual",
+    "titulo": "Nuevos Modeweewelos Pedagógicos en la Educación Virtual",
     "categoria": "Educación",
     "descripcionBreve": "Estrategias de aprendizaje basado en proyectos revolucionan la formación a distancia.",
     "contenido": "La educación a distancia evoluciona con metodologías centradas en la colaboración, la resolución de problemas reales y el desarrollo de competencias digitales esenciales para el mercado laboral actual.",
@@ -41,12 +41,22 @@
   },
   {
     "id": 5,
-    "titulo": "Reformas Económicas e Impacto en la Actualidad",
+    "titulo": "Reformassss Económicas e Impacto en la Actualidad",
     "categoria": "Actualidad",
     "descripcionBreve": "Análisis de las medidas fiscales recientes y sus repercusiones en el sector productivo.",
     "contenido": "Especialistas analizan las dinámicas macroeconómicas del año corriente y proyectan los retos financieros para las empresas y consumidores en el próximo trimestre.",
     "imagenUrl": "https://picsum.photos/id/1069/600/400",
     "fechaPublicacion": "2026-09-26",
+    "destacada": false
+  },
+  {
+    "id": 6,
+    "titulo": "Se Abren Cursos Para Hablar Sobre Cuidado Animal",
+    "categoria": "Educación",
+    "descripcionBreve": "Se lanzan programas educativos para concientizar sobre la protección de animales en situaciones de riesgo y abandono.",
+    "contenido": "El gobierno local, en colaboración con organizaciones de bienestar animal, ha desarrollado cursos y talleres que buscan educar a la población sobre la importancia del cuidado responsable de mascotas y animales de granja.",
+    "imagenUrl": "https://picsum.photos/id/237/200/300",
+    "fechaPublicacion": "2026-08-26",
     "destacada": false
   }
 ]

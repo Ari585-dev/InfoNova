@@ -1,1 +1,19 @@
-<p>navbar works!</p>
+<header class="navbar-header">
+  <div class="navbar-container">
+    <a routerLink="/" class="brand-logo">
+      <span class="logo-icon"></span>
+      <span class="logo-text">InfoNova</span>
+    </a>
+
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <a routerLink="/noticias" routerLinkActive="active">Noticias</a>
+      <a routerLink="/favoritos" routerLinkActive="active" class="fav-link">
+        Favoritos
+        <span class="badge" *ngIf="cantidadFavoritos > 0">{{ cantidadFavoritos }}</span>
+      </a>
+      <a routerLink="/gestion" routerLinkActive="active">Gestión</a>
+      <a routerLink="/contacto" routerLinkActive="active">Contacto</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,18 @@
+.footer-container {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 2rem;
+  margin-top: 3rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.footer-content p {
+  margin: 0.25rem 0;
+}
+
+.footer-sub {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}

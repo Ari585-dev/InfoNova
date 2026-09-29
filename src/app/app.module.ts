@@ -17,18 +17,18 @@ import { GestionComponent } from './components/gestion/gestion.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     FooterComponent,
-    HomeComponent,
     NoticiasComponent,
     NoticiaDetalleComponent,
-    FavoritosComponent,
     ContactoComponent,
     GestionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NavbarComponent,
+    HomeComponent,
+    FavoritosComponent,
     FormsModule
   ],
   providers: [
