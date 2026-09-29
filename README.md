@@ -1,9 +1,6 @@
 # Infonova
 
-
-
-
-<video src="[https://github.com](https://youtu.be/6jVf_lKbLpA)" controls width="100%"></video>
+[![](https://markdown-videos.deta.dev/youtube/6jVf_lKbLpA)](https://www.youtube.com/watch?v=6jVf_lKbLpA)
 
 
 
