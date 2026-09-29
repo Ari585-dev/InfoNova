@@ -1,1 +1,44 @@
-<p>favoritos works!</p>
+<div class="favoritos-container">
+  <div class="favoritos-header">
+    <h2>Mis Noticias Favoritas</h2>
+    <p>Consulta aquí las noticias que has guardado para leer más tarde.</p>
+  </div>
+
+  <!-- Estado con Noticias Favoritas -->
+  <div class="noticias-grid" *ngIf="noticiasFavoritas.length > 0; else sinFavoritos">
+    <article class="noticia-card" *ngFor="let noticia of noticiasFavoritas">
+      <div class="card-image-container">
+        <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" class="card-image">
+        <span class="badge-categoria">{{ noticia.categoria }}</span>
+        <button 
+          class="btn-favorito activo" 
+          (click)="eliminarFavorito(noticia.id, $event)"
+          title="Quitar de favoritos">
+          ♥
+        </button>
+      </div>
+
+      <div class="card-body">
+        <span class="card-fecha">{{ noticia.fechaPublicacion | date:'dd/MM/yyyy' }}</span>
+        <h3 class="card-titulo">{{ noticia.titulo }}</h3>
+        <p class="card-descripcion">{{ noticia.descripcionBreve }}</p>
+        
+        <div class="card-footer">
+          <a [routerLink]="['/noticia', noticia.id]" class="btn-leer-mas">
+            Leer noticia completa →
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Estado Vacío -->
+  <ng-template #sinFavoritos>
+    <div class="empty-state">
+      <div class="icon-heart-empty">🤍</div>
+      <h3>No tienes noticias favoritas guardadas</h3>
+      <p>Explora la sección principal y haz clic en el corazón para guardar las noticias de tu interés.</p>
+      <a routerLink="/" class="btn-explorar">Explorar Noticias</a>
+    </div>
+  </ng-template>
+</div>

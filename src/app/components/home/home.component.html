@@ -1,1 +1,58 @@
-<p>home works!</p>
+<div class="home-container">
+  <!-- Noticia Principal Destacada -->
+  <section class="main-featured" *ngIf="noticiaPrincipal">
+    <div class="featured-card">
+      <div class="featured-info">
+        <span class="badge-featured">DESTACADO PRINCIPAL</span>
+        <h1 class="featured-title">{{ noticiaPrincipal.titulo }}</h1>
+        <p class="featured-description">{{ noticiaPrincipal.descripcionBreve }}</p>
+        <a [routerLink]="['/noticias', noticiaPrincipal.id]" class="btn-primary">Ver más</a>
+      </div>
+      <div class="featured-image">
+        <img [src]="noticiaPrincipal.imagenUrl" [alt]="noticiaPrincipal.titulo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtro por Categorías -->
+  <section class="categories-filter">
+    <span class="filter-label">Filtrar por:</span>
+    <div class="filter-buttons">
+      <button 
+        *ngFor="let cat of categorias" 
+        [class.active]="categoriaSeleccionada === cat" 
+        (click)="filtrarPorCategoria(cat)"
+        class="btn-filter">
+        {{ cat }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Grilla de Noticias Destacadas -->
+  <section class="news-section">
+    <h2 class="section-title">Noticias Destacadas</h2>
+    
+    <div class="news-grid">
+      <article class="news-card" *ngFor="let noticia of noticiasDestacadas">
+        <div class="card-image">
+          <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" />
+          <button 
+            class="btn-fav" 
+            [class.is-fav]="esFavorito(noticia.id)" 
+            (click)="toggleFavorito(noticia.id, $event)"
+            title="Guardar en favoritos">
+            ♥
+          </button>
+        </div>
+        <div class="card-content">
+          <span class="card-category">{{ noticia.categoria }}</span>
+          <h3 class="card-title">{{ noticia.titulo }}</h3>
+          <p class="card-description">{{ noticia.descripcionBreve }}</p>
+          <div class="card-footer">
+            <a [routerLink]="['/noticias', noticia.id]" class="btn-secondary">Ver más</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
