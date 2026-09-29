@@ -1,1 +1,113 @@
-<p>gestion works!</p>
+<div class="gestion-container">
+  <div class="gestion-header">
+    <h2>Publicar Nueva Noticia</h2>
+    <p>Diligencie el siguiente formulario para agregar un nuevo artículo al portal InfoNova.</p>
+  </div>
+
+  <!-- Alerta de éxito -->
+  <div class="alert-exito" *ngIf="mensajeExito">
+    ✓ ¡Noticia creada e incorporada exitosamente! Redirigiendo a la portada...
+  </div>
+
+  <form [formGroup]="noticiaForm" (ngSubmit)="guardarNoticia()" class="form-card">
+    
+    <!-- Título -->
+    <div class="form-group">
+      <label for="titulo">Título de la Noticia <span class="required">*</span></label>
+      <input 
+        type="text" 
+        id="titulo" 
+        formControlName="titulo" 
+        placeholder="Ej: Avances de la Inteligencia Artificial en Educación"
+        [class.is-invalid]="campoEsInvalido('titulo')" />
+      
+      <div class="error-feedback" *ngIf="campoEsInvalido('titulo')">
+        <span *ngIf="f['titulo'].errors?.['required']">El título es obligatorio.</span>
+        <span *ngIf="f['titulo'].errors?.['minlength']">El título debe tener al menos 10 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Categoría y Destacada -->
+    <div class="form-row">
+      <div class="form-group flex-1">
+        <label for="categoria">Categoría <span class="required">*</span></label>
+        <select 
+          id="categoria" 
+          formControlName="categoria" 
+          [class.is-invalid]="campoEsInvalido('categoria')">
+          <option value="" disabled selected>Seleccione una categoría</option>
+          <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+
+        <div class="error-feedback" *ngIf="campoEsInvalido('categoria')">
+          <span>Debe seleccionar una categoría.</span>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group flex-1">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="destacada" />
+          <span>Marcar como Noticia Destacada</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- URL de la Imagen -->
+    <div class="form-group">
+      <label for="imagenUrl">URL de la Imagen <span class="required">*</span></label>
+      <input 
+        type="url" 
+        id="imagenUrl" 
+        formControlName="imagenUrl" 
+        placeholder="https://images.unsplash.com/photo-..."
+        [class.is-invalid]="campoEsInvalido('imagenUrl')" />
+      
+      <div class="error-feedback" *ngIf="campoEsInvalido('imagenUrl')">
+        <span *ngIf="f['imagenUrl'].errors?.['required']">La URL de la imagen es obligatoria.</span>
+        <span *ngIf="f['imagenUrl'].errors?.['pattern']">Ingrese una URL web válida (ej: https://...).</span>
+      </div>
+    </div>
+
+    <!-- Descripción Breve -->
+    <div class="form-group">
+      <label for="descripcionBreve">Resumen o Descripción Breve <span class="required">*</span></label>
+      <textarea 
+        id="descripcionBreve" 
+        formControlName="descripcionBreve" 
+        rows="2" 
+        placeholder="Breve resumen para la tarjeta en la portada (15 - 150 caracteres)"
+        [class.is-invalid]="campoEsInvalido('descripcionBreve')"></textarea>
+
+      <div class="error-feedback" *ngIf="campoEsInvalido('descripcionBreve')">
+        <span *ngIf="f['descripcionBreve'].errors?.['required']">La descripción breve es obligatoria.</span>
+        <span *ngIf="f['descripcionBreve'].errors?.['minlength']">Mínimo 15 caracteres.</span>
+        <span *ngIf="f['descripcionBreve'].errors?.['maxlength']">Máximo 150 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Contenido Completo -->
+    <div class="form-group">
+      <label for="contenido">Contenido Completo de la Noticia <span class="required">*</span></label>
+      <textarea 
+        id="contenido" 
+        formControlName="contenido" 
+        rows="6" 
+        placeholder="Escriba aquí todo el desarrollo de la noticia..."
+        [class.is-invalid]="campoEsInvalido('contenido')"></textarea>
+
+      <div class="error-feedback" *ngIf="campoEsInvalido('contenido')">
+        <span *ngIf="f['contenido'].errors?.['required']">El contenido de la noticia es obligatorio.</span>
+        <span *ngIf="f['contenido'].errors?.['minlength']">El desarrollo debe tener al menos 30 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="form-actions">
+      <a routerLink="/" class="btn-cancelar">Cancelar</a>
+      <button type="submit" class="btn-guardar" [disabled]="noticiaForm.invalid">
+        Guardar y Publicar Noticia
+      </button>
+    </div>
+
+  </form>
+</div>

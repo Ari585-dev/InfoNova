@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,8 +20,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
     FooterComponent,
     NoticiasComponent,
     NoticiaDetalleComponent,
-    ContactoComponent,
-    GestionComponent
+    ContactoComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +28,9 @@ import { GestionComponent } from './components/gestion/gestion.component';
     NavbarComponent,
     HomeComponent,
     FavoritosComponent,
-    FormsModule
+    GestionComponent,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideHttpClient()

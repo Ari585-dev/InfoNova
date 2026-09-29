@@ -44,7 +44,8 @@ private cargarNoticiasIniciales(): void {
 
 
   /**
-   * Carga sec
+   * Procesa las noticias obtenidas del JSON y las combina con las noticias creadas por el usuario
+   * @param noticiasJson 
    */
 private procesarNoticias(noticiasJson: Noticia[]): void {
   const noticiasGuardadas = localStorage.getItem(this.STORAGE_KEY);
