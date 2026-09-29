@@ -1,6 +1,12 @@
 # Infonova
 
-[![](https://markdown-videos.deta.dev/youtube/6jVf_lKbLpA)](https://www.youtube.com/watch?v=6jVf_lKbLpA)
+
+
+https://github.com/user-attachments/assets/d3e760db-d883-460d-9bea-e3eb2b4f845c
+
+
+
+
 
 
 
