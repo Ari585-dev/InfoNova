@@ -1,1 +1,94 @@
-<p>contacto works!</p>
+<div class="contacto-container">
+  <div class="contacto-header">
+    <h2>Contacto</h2>
+    <p>Envíanos un mensaje, sugerencia o reporte técnico.</p>
+  </div>
+
+  <div class="contacto-grid">
+    <!-- Formulario -->
+    <form [formGroup]="contactoForm" (ngSubmit)="enviarMensaje()" class="contacto-form">
+      
+      <!-- Nombre Completo -->
+      <div class="form-group">
+        <label for="nombreCompleto">Nombre completo <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="nombreCompleto" 
+          formControlName="nombreCompleto" 
+          placeholder="Ej: Juan Pérez"
+          [class.is-invalid]="campoEsInvalido('nombreCompleto')" />
+        <div class="error-feedback" *ngIf="campoEsInvalido('nombreCompleto')">
+          <span *ngIf="f['nombreCompleto'].errors?.['required']">El nombre es obligatorio.</span>
+          <span *ngIf="f['nombreCompleto'].errors?.['minlength']">Mínimo 3 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Correo Electrónico -->
+      <div class="form-group">
+        <label for="correo">Correo electrónico <span class="required">*</span></label>
+        <input 
+          type="email" 
+          id="correo" 
+          formControlName="correo" 
+          placeholder="juan.perez@example.com"
+          [class.is-invalid]="campoEsInvalido('correo')" />
+        <div class="error-feedback" *ngIf="campoEsInvalido('correo')">
+          <span *ngIf="f['correo'].errors?.['required']">El correo es obligatorio.</span>
+          <span *ngIf="f['correo'].errors?.['email']">Ingrese un correo electrónico válido.</span>
+        </div>
+      </div>
+
+      <!-- Asunto -->
+      <div class="form-group">
+        <label for="asunto">Asunto <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="asunto" 
+          formControlName="asunto" 
+          placeholder="Ej: Reportar un enlace caído"
+          [class.is-invalid]="campoEsInvalido('asunto')" />
+        <div class="error-feedback" *ngIf="campoEsInvalido('asunto')">
+          <span *ngIf="f['asunto'].errors?.['required']">El asunto es obligatorio.</span>
+          <span *ngIf="f['asunto'].errors?.['minlength']">Mínimo 5 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Mensaje -->
+      <div class="form-group">
+        <label for="mensaje">Mensaje <span class="required">*</span></label>
+        <textarea 
+          id="mensaje" 
+          formControlName="mensaje" 
+          rows="5" 
+          placeholder="Escriba su consulta detalladamente aquí..."
+          [class.is-invalid]="campoEsInvalido('mensaje')"></textarea>
+        <div class="error-feedback" *ngIf="campoEsInvalido('mensaje')">
+          <span *ngIf="f['mensaje'].errors?.['required']">El mensaje es obligatorio.</span>
+          <span *ngIf="f['mensaje'].errors?.['minlength']">Mínimo 10 caracteres.</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-enviar" [disabled]="contactoForm.invalid">
+        Enviar mensaje
+      </button>
+
+      <!-- Mensaje de Confirmación -->
+      <div class="alert-exito" *ngIf="mensajeEnviado">
+        ✓ Mensaje enviado correctamente. Nos pondremos en contacto contigo a la brevedad.
+      </div>
+    </form>
+
+    <!-- Información lateral de contacto -->
+    <div class="contacto-info-card">
+      <h3>Información de contacto</h3>
+      <p><strong>CORREO ELECTRÓNICO</strong><br>contacto&#64;infonova.com</p>
+      <p><strong>TELÉFONO DE ASISTENCIA</strong><br>+57 XXX XXX XXXX</p>
+      <p><strong>OFICINAS CENTRALES</strong><br>Dirección 123<br>Bogotá, Colombia</p>
+
+      <hr class="divider">
+
+      <h4>SOPORTE DE PLATAFORMA</h4>
+      <p class="small-text">Las solicitudes técnicas suelen responderse en un plazo máximo de 24 horas hábiles.</p>
+    </div>
+  </div>
+</div>

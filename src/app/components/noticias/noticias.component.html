@@ -1,1 +1,67 @@
-<p>noticias works!</p>
+<div class="noticias-container">
+  
+  <div class="noticias-header">
+    <h2>Catálogo General de Noticias</h2>
+    <p>Explore todas las publicaciones de InfoNova o busque un tema específico.</p>
+  </div>
+
+  <!-- Barra de Búsqueda -->
+  <div class="search-bar-container">
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Buscar noticias por título, tema o palabras clave..."
+      [(ngModel)]="terminoBusqueda" 
+      (input)="buscarNoticias()" />
+  </div>
+
+  <!-- Botones de Filtro por Categoría -->
+  <div class="categories-filter">
+    <button 
+      *ngFor="let cat of categorias" 
+      class="btn-cat" 
+      [class.active]="categoriaSeleccionada === cat"
+      (click)="filtrarPorCategoria(cat)">
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- Grilla de Noticias -->
+  <div class="noticias-grid" *ngIf="noticiasFiltradas.length > 0; else noResults">
+    <article class="noticia-card" *ngFor="let noticia of noticiasFiltradas">
+      <div class="card-image-container">
+        <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" class="card-image" />
+        <span class="badge-cat">{{ noticia.categoria }}</span>
+      </div>
+
+      <div class="card-body">
+        <span class="card-fecha">{{ noticia.fechaPublicacion }}</span>
+        <h3 class="card-title">{{ noticia.titulo }}</h3>
+        <p class="card-desc">{{ noticia.descripcionBreve }}</p>
+
+        <div class="card-footer">
+          <a [routerLink]="['/noticias', noticia.id]" class="btn-ver-mas">Ver más</a>
+          
+          <button 
+            class="btn-icon-fav" 
+            [class.fav-active]="esFavorito(noticia.id)" 
+            (click)="toggleFavorito(noticia.id)"
+            [title]="esFavorito(noticia.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'">
+            {{ esFavorito(noticia.id) ? '♥' : '♡' }}
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Estado sin resultados -->
+  <ng-template #noResults>
+    <div class="no-results-card">
+      <p>No se encontraron noticias que coincidan con la búsqueda o filtro seleccionado.</p>
+      <button class="btn-reset" (click)="filtrarPorCategoria('Todas'); terminoBusqueda = ''; aplicarFiltros();">
+        Ver todas las noticias
+      </button>
+    </div>
+  </ng-template>
+
+</div>

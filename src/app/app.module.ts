@@ -17,9 +17,8 @@ import { GestionComponent } from './components/gestion/gestion.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    NoticiasComponent,
-    ContactoComponent
+    FooterComponent
+
   ],
   imports: [
     BrowserModule,
@@ -30,6 +29,8 @@ import { GestionComponent } from './components/gestion/gestion.component';
     GestionComponent,
     FormsModule,
     NoticiaDetalleComponent,
+    ContactoComponent,
+    NoticiasComponent,
     ReactiveFormsModule
   ],
   providers: [
