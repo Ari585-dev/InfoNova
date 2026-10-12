@@ -1,1 +1,44 @@
-<p>noticia-detalle works!</p>
+<div class="detalle-container" *ngIf="noticia">
+  
+  <!-- Migas de pan (Breadcrumbs) -->
+  <nav class="breadcrumb">
+    <a routerLink="/">Inicio</a> &gt; 
+    <a routerLink="/noticias">Noticias</a> &gt; 
+    <span class="categoria-tag">{{ noticia.categoria }}</span>
+  </nav>
+
+  <!-- Encabezado de la Noticia -->
+  <header class="detalle-header">
+    <span class="badge-categoria">{{ noticia.categoria }}</span>
+    <h1>{{ noticia.titulo }}</h1>
+    <p class="detalle-meta">
+      Publicado el <strong>{{ noticia.fechaPublicacion }}</strong> — Escrito por <em>Redacción InfoNova</em>
+    </p>
+  </header>
+
+  <!-- Imagen Principal -->
+  <div class="detalle-imagen-container">
+    <img [src]="noticia.imagenUrl" [alt]="noticia.titulo" class="imagen-principal" />
+  </div>
+
+  <!-- Cuerpo del Contenido -->
+  <div class="detalle-contenido">
+    <p class="lead"><strong>{{ noticia.descripcionBreve }}</strong></p>
+    <div class="texto-cuerpo">
+      <p>{{ noticia.contenido }}</p>
+    </div>
+  </div>
+
+  <!-- Botones de Acción inferior -->
+  <div class="detalle-acciones">
+    <button 
+      class="btn-favorito" 
+      [class.activo]="esFavorito" 
+      (click)="toggleFavorito()">
+      <span class="corazon">{{ esFavorito ? '♥ En favoritos' : '♡ Agregar a favoritos' }}</span>
+    </button>
+    
+    <a routerLink="/" class="btn-volver">← Volver al inicio</a>
+  </div>
+
+</div>

@@ -19,7 +19,6 @@ import { GestionComponent } from './components/gestion/gestion.component';
     AppComponent,
     FooterComponent,
     NoticiasComponent,
-    NoticiaDetalleComponent,
     ContactoComponent
   ],
   imports: [
@@ -30,6 +29,7 @@ import { GestionComponent } from './components/gestion/gestion.component';
     FavoritosComponent,
     GestionComponent,
     FormsModule,
+    NoticiaDetalleComponent,
     ReactiveFormsModule
   ],
   providers: [
