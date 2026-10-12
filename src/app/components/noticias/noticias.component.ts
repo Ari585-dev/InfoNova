@@ -44,7 +44,7 @@ export class NoticiasComponent implements OnInit, OnDestroy {
     this.aplicarFiltros();
   }
 
-  private aplicarFiltros(): void {
+  public aplicarFiltros(): void {
     let resultado = [...this.noticias];
 
     // Filtro por categoría
